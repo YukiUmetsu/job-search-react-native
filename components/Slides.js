@@ -21,7 +21,7 @@ class Slides extends Component {
     renderSlides(){
         return this.props.data.map((slide, index) => {
             return (
-                <View style={slide.style}>
+                <View key={index} style={slide.style}>
                     <Text style={slide.textStyle}>{slide.text}</Text>
                     {this.renderLastSlideButton(index)}
                 </View>
