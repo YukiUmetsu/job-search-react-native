@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Linking, Platform } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button, Card, Icon } from 'react-native-elements';
 import {connect} from "react-redux";
 import { MapView } from 'expo';
 
@@ -19,12 +19,16 @@ class ReviewScreen extends Component {
                     backgroundColor: "rgba(0,0,0,0)"
                 }}
             />
-        )
+        ),
+        tabBarLabel: 'Review Jobs',
+        tabBarIcon: ({ tintColor }) => {
+                return <Icon name="favorite" size={30} color={tintColor} />
+        }
     });
 
     renderLikedJobs(){
         return this.props.likedJobs.map(job => {
-            const { company, formattedRelativeTime, url, longitude, latitude } = job;
+            const { company, formattedRelativeTime, url, longitude, latitude, jobkey, jobtitle } = job;
             const initialRegion = {
                 longitude: longitude,
                 latitude: latitude,
@@ -33,7 +37,7 @@ class ReviewScreen extends Component {
             };
 
             return (
-                <Card>
+                <Card title={jobtitle} key={jobkey}>
                     <View style={{height:200}}>
                         <MapView
                             scrollEnabled={false}
@@ -75,6 +79,7 @@ const styles = {
       fontStyle: 'italic',
     },
     detailWrapper: {
+        marginTop: 10,
         marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-around'
